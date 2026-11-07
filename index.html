@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SimCam — Handle the camera</title>
+  <meta name="description" content="SimCam simulates the experience of handling a camera: night stacking and light trails, focus assistants, the exposure triangle, slow-sync flash, film rolls and contact sheets, and a colour pipeline close to a digital camera's own firmware. A simulation, kept close to the real thing.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ───────────── Header ───────────── -->
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="wordmark" href="#top" aria-label="SimCam home">SIM<span class="dash"></span>CAM</a>
+      <nav class="nav" aria-label="Sections">
+        <a href="#screens">In use</a>
+        <a href="#features">Features</a>
+        <a href="#analog">Analog</a>
+        <a href="#specs">Specs</a>
+      </nav>
+      <!-- App Store link not available yet: fill in href when the listing is live. -->
+      <a class="btn btn-outline" href="" data-app-store>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8 1.5 0 1.9.8 3.2.8 1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.6-1-2.6-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4z"/></svg>
+        <span><small>Download on the</small>App Store</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ───────────── Hero ───────────── -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">A simulation of handling a camera</p>
+          <h1 class="hero-title">
+            Learn the machine.<br>
+            <em>Then take the picture.</em>
+          </h1>
+          <svg class="swoosh" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 10 C 60 2, 140 1, 198 4"/></svg>
+          <p class="hero-lede">
+            SimCam is a chance to handle a camera the long way round: the exposure triangle,
+            a night built by stacking, focus aids from a serious digital body, and a roll of
+            film you have to finish. The picture is what that handling earns. It stays close
+            to the physical world, and it stays a simulation.
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-light" href="" data-app-store>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8 1.5 0 1.9.8 3.2.8 1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.6-1-2.6-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4z"/></svg>
+              <span><small>Download on the</small>App Store</span>
+            </a>
+            <span class="note">iPhone · Coming soon</span>
+          </div>
+        </div>
+
+        <div class="hero-stage">
+          <div class="stage-phones">
+          <figure class="device-fig stage-portrait">
+            <div class="phone" data-shot="hero-portrait-photo.jpg">
+              <div class="screen"><img src="screens/hero-portrait-photo.jpg" alt="SimCam in portrait: a mountain lake at golden hour with the 35 mm frame line, the 28 mm lens button and the LED metering bar"></div>
+            </div>
+          </figure>
+          <figure class="device-fig stage-landscape">
+            <div class="phone landscape" data-shot="hero-landscape-photo.jpg">
+              <div class="screen"><img src="screens/hero-landscape-photo.jpg" alt="SimCam in landscape: the same mountain lake with the vertical metering bar and shutter on the camera body skin"></div>
+            </div>
+          </figure>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <ul class="hero-bar">
+          <li>
+            <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13"/><path d="M16 3l5 11M29 16l-11 5M16 29l-5-11M3 16l11-5M7 7l9 2M25 7l-2 9M25 25l-9-2M7 25l2-9"/></svg>
+            <span><b>Exposure triangle</b>Aperture, shutter, ISO</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="7" width="26" height="18" rx="1.5"/><path d="M8 11v-1h2M24 10h-2M8 21v1h2M24 22h-2" /></svg>
+            <span><b>Focus craft</b>Peaking and a closer look</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="8" y="6" width="13" height="22" rx="2"/><path d="M11 6V3h7v3M21 10h4v14h-4"/></svg>
+            <span><b>A roll of film</b>135, half frame, the sheet</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 5l12 6-12 6-12-6zM4 16l12 6 12-6M4 21l12 6 12-6"/></svg>
+            <span><b>Camera colour</b>A pipeline close to firmware</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="9" width="28" height="14" rx="2.5"/><text x="16" y="19.6" text-anchor="middle">RAW</text></svg>
+            <span><b>Night, stacked</b>Cleaner dark, or light trails</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ───────────── Thesis ───────────── -->
+    <section class="thesis">
+      <div class="wrap thesis-grid">
+        <p class="kicker">Why "Sim-Cam"</p>
+        <div>
+          <p class="thesis-lead">
+            The name is the whole idea. SimCam simulates the <em>experience</em> of a camera:
+            the machine in your hand, and the way a photographer works it.
+          </p>
+          <div class="thesis-cols">
+            <p>
+              Phones differ, so this is a handling you practise. Night is the long craft of a
+              dark picture: a stack that quiets the noise, trails when the city should draw
+              with light, and a flash that waits for the end of a slow shutter. Focus is the
+              craft of a premium digital body, with assistants that help you see whether the
+              point is sharp. Exposure is the triangle photographers already know, marked in
+              the thirds of a stop a real dial uses.
+            </p>
+            <p>
+              Film is the other machine. The catalog holds full-frame 135 and half frame,
+              each format a crop of its own, so further sizes can join the same way. A date
+              stamp, a contact sheet, and a choice of analog bodies, each with its own
+              strength: a vignette that belongs to that lens, or a roll loaded onto that
+              camera and kept there until it is finished.
+              Colour is the pipeline inside a digital camera's firmware, followed closely
+              enough that a look can stand in for that body's way of seeing. Every one of
+              these is a simulation, brought close to the physical world, and kept as a
+              simulation.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────── Numbers ───────────── -->
+    <section class="numbers" aria-label="SimCam in numbers">
+      <div class="wrap numbers-grid">
+        <div><b>140+</b><span>Film looks, from camera colour to film stocks</span></div>
+        <div><b>7</b><span>Focal lengths, 13 to 120 mm</span></div>
+        <div><b>⅓</b><span>Stop steps for aperture, shutter and ISO</span></div>
+        <div><b>25,600</b><span>Extended ISO, pushed in the RAW development</span></div>
+        <div><b>7</b><span>Drive modes, including Portrait, Night, ND, time-lapse and video</span></div>
+        <div><b>7</b><span>Camera body skins, from Classic to Story</span></div>
+      </div>
+    </section>
+
+    <!-- ───────────── In use: four orientations ───────────── -->
+    <section class="screens" id="screens">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="kicker">In use</p>
+          <h2>Hold it like a camera.<br><em>In either direction.</em></h2>
+          <p class="section-intro">
+            The first simulation is the grip. Turn the phone and the controls move to the side,
+            the way a body puts its dials under the right hand, and every label stays upright.
+            Photo mode keeps a 4:3 picture with the meter beneath it. Video opens the full 16:9
+            frame. The hold itself is part of the simulation: the same body, the same dials,
+            whichever way the picture is framed.
+          </p>
+        </header>
+
+        <div class="screens-grid">
+          <figure class="device-fig">
+            <div class="phone" data-shot="hero-portrait-photo.jpg">
+              <div class="screen"><img src="screens/hero-portrait-photo.jpg" alt="SimCam held upright: a mountain lake at golden hour with the 35 mm frame line, and the metering bar and shutter row on the camera body skin" loading="lazy"></div>
+            </div>
+            <figcaption>
+              <span class="shot-id">SHOT 01 · Photo · Portrait</span>
+              On the 28 mm lens, the 35 mm frame line marks the picture, and you can see what's
+              just outside it. The LED meter reads −1.3 EV at ISO 5184, the format readout shows
+              HEIF 23MP, and Vivid Chromatic sits next to the shutter.
+            </figcaption>
+          </figure>
+          <figure class="device-fig">
+            <div class="phone" data-shot="video-portrait.jpg">
+              <div class="screen"><img src="screens/video-portrait.jpg" alt="SimCam recording video upright: Tuscan hills at golden hour filling the 9:16 frame, the REC timer at the top and a red stop button on the camera body skin" loading="lazy"></div>
+            </div>
+            <figcaption>
+              <span class="shot-id">SHOT 02 · Video · Portrait</span>
+              Video uses the full 9:16 frame, here on the 13 mm lens. The REC timer runs at the
+              top, Vivid Chromatic is graded into the clip as it records, and the shutter becomes
+              a red stop button.
+            </figcaption>
+          </figure>
+          <figure class="device-fig wide">
+            <div class="phone landscape" data-shot="hero-landscape-photo.jpg">
+              <div class="screen"><img src="screens/hero-landscape-photo.jpg" alt="SimCam held sideways: the same mountain lake, with the vertical metering bar and shutter on the grip side of the camera body skin" loading="lazy"></div>
+            </div>
+            <figcaption>
+              <span class="shot-id">SHOT 03 · Photo · Landscape</span>
+              Turn the phone and the camera turns with it. The lens, frame and aspect buttons
+              move to the left by the island. On the grip side, the metering bar stands upright:
+              ISO on top, the −2…+2 scale, then the EV reading.
+            </figcaption>
+          </figure>
+          <figure class="device-fig wide">
+            <div class="phone landscape" data-shot="video-landscape.jpg">
+              <div class="screen"><img src="screens/video-landscape.jpg" alt="SimCam in video mode held sideways: a coastal sunset filling the 16:9 frame, VIDEO 1080P at the top and a red record button on the grip side" loading="lazy"></div>
+            </div>
+            <figcaption>
+              <span class="shot-id">SHOT 04 · Video · Landscape</span>
+              Held sideways, the whole 16:9 frame is the picture: a coastline at sunset on the
+              13 mm lens, recording 1080p. The record, menu and look buttons line up on the grip
+              side of the body.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────── Features ───────────── -->
+    <section class="features" id="features">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="kicker">Features</p>
+          <h2>A shelf of machines.<br><em>Each one handled in full.</em></h2>
+        </header>
+      </div>
+
+      <!-- 01 -->
+      <article class="feature" id="raw">
+        <div class="wrap feature-grid">
+          <div class="feature-text">
+            <p class="feature-no">01</p>
+            <h3>A raw file, developed like a camera</h3>
+            <p class="feature-lede">
+              The reward of a digital body is the file it makes, and the pipeline inside its
+              firmware that turns that file into its own colour. SimCam follows that path: a
+              raw capture, developed here, with the look baked in so the finished photo is a
+              close simulation of that camera's way of seeing. The same pipeline can hand you
+              four different files: a finished HDR HEIF, a Portrait you can still reshape, a
+              ProRAW that keeps the scene's range, or a Bayer RAW whose development stays
+              yours. Night is the long craft inside the first of those: frames stacked, noise
+              quieted, exposure and colour kept as you set them.
+            </p>
+            <ul class="spec-list">
+              <li><b>RAW to finished photo</b>Saves HEIF, JPEG or PNG with the look baked in, developed from the raw capture the way a camera finishes its own file.</li>
+              <li><b>The pipeline is the simulation</b>On a normal shot the grain and the highlight roll-off are the ones you set, a stand-in for the processing a body does before you ever see the picture. Night starts from computational HDR frames, then stacks and grades them here.</li>
+              <li><b>You choose the machine</b>Stacking runs when you pick Night or ND on the drive dial. Depth is captured when you pick Portrait. Each one is a mode you commit to, the way you would pick a long exposure or a portrait lens.</li>
+              <li><b>HEIF, computational</b>Night finishes a ready-to-share HDR HEIF. Computational HDR frames are stacked and graded with your look, and highlights brighter than a normal print come back on an HDR screen.</li>
+              <li><b>Portrait</b>A simulated aperture, from ƒ1.4 to ƒ16, with the depth saved in the HEIF. Focus, subject separation and Portrait lighting can still be changed after the shot.</li>
+              <li><b>ProRAW</b>On Pro models, a demosaiced linear DNG at the lens's full resolution, saved beside the finished photo. Highlights, midtones and shadows stay in the file, so a later develop still has the range.</li>
+              <li><b>RAW</b>A Bayer DNG beside the finished photo, on any RAW-capable iPhone, at 12 MP. One frame of the sensor, without a computational HDR pass, so the development is yours.</li>
+              <li><b>Extended ISO</b>Shoot past the sensor's native limit, up to ISO 25,600. The extra stops are pushed during the RAW development, like push-processing film, and the EXIF records the ISO you shot at.</li>
+              <li><b>Every setting remembered</b>Each photo carries the aperture, shutter, ISO, focal length and shooting distance, the film simulation and the look's adjustment values, the drive mode and the GPS position. Open a photo in SimCam's library and tap it to read them.</li>
+              <li><b>Private by design</b>Film rolls and private shots are stored encrypted on the phone. Nothing leaves until you export it.</li>
+            </ul>
+          </div>
+          <figure class="device-fig">
+            <div class="phone" data-shot="feature-raw.jpg">
+              <div class="screen"><img src="screens/feature-raw.jpg" alt="SimCam in portrait with the output choices open: JPEG, HEIF, PNG, JPEG + ProRAW and HEIF + ProRAW, over a coastal sunset with a thirds grid" loading="lazy"></div>
+            </div>
+            <figcaption>
+              <span class="shot-id">SHOT 05</span>
+              The output choices are open in the menu strip: JPEG, HEIF or PNG alone, or with a
+              ProRAW DNG. HEIF + ProRAW is selected, and the readout above the picture shows
+              49MP. The sharp, unprocessed detail in the cliffs and surf is what developing
+              straight from RAW gives you.
+            </figcaption>
+          </figure>
+        </div>
+        <div class="wrap">
+          <figure class="pipeline">
+            <img src="screens/raw-pipeline.jpg" alt="Native RAW Pipeline: the same Tokyo night as an HDR HEIF from Night, a Portrait at a simulated f/1.4, a ProRAW that keeps highlight, midtone and shadow range, and a Bayer RAW with no computational treatment" loading="lazy">
+            <figcaption>
+              The four files, one scene. Night finishes an HDR HEIF. Portrait keeps a simulated
+              aperture, here ƒ1.4, that you can still change. ProRAW keeps the range of the
+              scene, highlights through shadows. RAW is the sensor frame, ready for you to develop.
+            </figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- 02 -->
+      <article class="feature alt" id="exposure">
+        <div class="wrap feature-grid">
+          <div class="feature-text">
+            <p class="feature-no">02</p>
+            <h3>The exposure triangle, in your fingers</h3>
+            <p class="feature-lede">
+              This is the control photographers already know by feel. Leave the dials alone and
+              the camera meters. Set the aperture and you are in aperture priority. Set the
+              shutter and you are in shutter priority. Set both and you are shooting manual.
+              The markings are the ones printed on lenses and shutter dials. Where a phone lens
+              has a single opening, the aperture stop is computed so the picture follows the
+              number you chose. That stop is a simulation of the triangle, close to the habit
+              of shooting, and still a simulation.
+            </p>
+            <ul class="spec-list">
+              <li><b>Third-stop dials</b>Aperture, shutter speed and ISO move on wheels in third stops: ƒ1.4, ƒ1.6, ƒ1.8, ƒ2… and 1/125, 1/160, 1/200… The same steps a working photographer expects under the finger.</li>
+              <li><b>Metering bar</b>A digital camera's LED meter, from −2 to +2 EV with ISO and EV readouts. In landscape it stands upright in the body's window. Choose whether it's always on or only appears while you adjust.</li>
+              <li><b>Live histogram</b>Sits right above the picture, so you can read highlights and shadows before you press the shutter.</li>
+              <li><b>ISO 25 to 25,600</b>One continuous wheel, with the extended range pushed in development.</li>
+              <li><b>AE/AF lock badges</b>Tap to lock, and see at a glance what's pinned and what's automatic.</li>
+            </ul>
+          </div>
+          <figure class="device-fig wide">
+            <div class="phone landscape" data-shot="feature-exposure.jpg">
+              <div class="screen"><img src="screens/feature-exposure.jpg" alt="SimCam in landscape with the aperture wheel open at f/1.8 beside the settings column, and the vertical meter on the camera body" loading="lazy"></div>
+            </div>
+            <figcaption>
+              <span class="shot-id">SHOT 06</span>
+              The aperture wheel is open and set to ƒ/1.8, with the shutter at 1/8000 s and ISO
+              2000, all read out in the left band. The vertical meter shows ISO 2000 and −6.7 EV.
+            </figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- 03 -->
+      <article class="feature" id="lenses">
+        <div class="wrap feature-grid">
+          <div class="feature-text">
+            <p class="feature-no">03</p>
+            <h3>Lenses, the way a rangefinder shows them</h3>
+            <p class="feature-lede">
+              Choosing a lens is part of handling the camera. You pick it by focal length, the
+              way a set of primes is named. The viewfinder can show more than the lens takes in,
+              with bright frame lines marking the picture, so you see what is about to walk into
+              the frame. The lines are a simulation of a rangefinder's finder: the seeing, before
+              the shutter.
+            </p>
+            <ul class="spec-list">
+              <li><b>Seven focal lengths</b>13, 24, 28, 35, 45, 85 and 120 mm, the classic primes photographers use. The 28, 35, 45 and 85 mm steps are clean digital crops.</li>
+              <li><b>Frame lines</b>Shows the frame lines for the current lens and the next three longer ones. On 24 mm you can see the 28, 35 and 45 mm frames together.</li>
+              <li><b>Aspect ratios</b>Native, 1:1, 4:3, 3:2 and 16:9. Long-press and drag to switch without looking away.</li>
+              <li><b>Outside the frame</b>Darken or hide what falls outside the frame lines, as a real viewfinder does.</li>
+            </ul>
+          </div>
+          <figure class="device-fig">
+            <div class="phone" data-shot="feature-lenses.jpg">
+              <div class="screen"><img src="screens/feature-lenses.jpg" alt="SimCam in portrait on a Paris street at golden hour: the 28 mm frame line drawn on the 24 mm picture, with the frame choices 24, 28, 35 and 45 mm plus Mask open" loading="lazy"></div>
+            </div>
+            <figcaption>
+              <span class="shot-id">SHOT 07</span>
+              The lens is the native 24 mm, and the white frame line marks what a 28 mm lens would
+              take. You can still see the street beyond it. The Frame button is open, showing
+              24, 28, 35 and 45 mm, the current lens plus the next three, with Mask beside them
+              to darken what falls outside the frame.
+            </figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- 04 -->
+      <article class="feature alt" id="looks">
+        <div class="wrap feature-grid">
+          <div class="feature-text">
+            <p class="feature-no">04</p>
+            <h3>Colour, the way a camera finishes it</h3>
+            <p class="feature-lede">
+              A look here is a piece of the machine. Camera colour profiles follow, as closely
+              as a simulation can, the raw pipeline inside a digital camera's firmware: that
+              body's way of turning a file into its own picture. Film stocks sit beside them,
+              the colour a roll would have given you. You preview it live, and the same LUT is
+              baked into the full-resolution photo. The same pass carries the special effects
+              a lens and a body would add: diffusion, a vignette, deeper saturated colour, and
+              a highlight roll-off. The colour is part of the handling, and it remains a
+              simulation of the camera that taught it.
+            </p>
+            <ul class="spec-list">
+              <li><b>A full shelf</b>Camera colour profiles, 40+ colour film stocks, 10 black-and-white stocks, plus Cinematic and Neo-Tokyo. More than 140 LUTs, each a simulation of a way of seeing.</li>
+              <li><b>Fine adjustment</b>Set the look's strength with an opacity slider, so you can go subtle or all the way.</li>
+              <li><b>Film curves</b>Film Standard, Film Contrast+, Film Shadow+ or Linear Response, to shape the tone the way different film stocks do.</li>
+              <li><b>Halation</b>The red-orange glow film gets around bright highlights, when light reflects back through the film base.</li>
+              <li><b>Bloom</b>A soft glow around every bright area, like old glass and diffusion filters.</li>
+              <li><b>Grain</b>Fine, medium or coarse, scaled to the picture, so it looks the same on screen and in a 48 MP file.</li>
+              <li><b>Diffusion</b>A filter simulated in front of the lens. The frame softens, contrast eases, and the brightest tones glow, from a light touch up to a strong filter. The picture's own sharpness stays underneath.</li>
+              <li><b>Lens vignetting</b>Corners darken the way a wide-open lens falls off, round about the centre. All the way up is about two stops at the corners, and the middle stays as it is. A camera profile can lock its own vignette for the whole roll.</li>
+              <li><b>Color Chrome</b>On the Special effects control, at Off, Weak or Strong. Saturated reds, yellows and greens go deeper, so a bright colour keeps its steps of tone. Pale and dark colours stay as they are.</li>
+              <li><b>FX Blue</b>The same deepening for blues, skies and water. Off, Weak or Strong, and it can be on together with Color Chrome.</li>
+              <li><b>Highlight roll-off</b>Bright tones ease into white. On a RAW photo the roll-off uses the file's headroom. In the live view, and when there is no RAW, a gentle shoulder keeps the near-white detail apart.</li>
+            </ul>
+          </div>
+          <figure class="device-fig">
+            <div class="phone" data-shot="feature-looks.jpg">
+              <div class="screen"><img src="screens/feature-looks.jpg" alt="SimCam in portrait on a rainy Paris street at night, with halation and bloom glowing around the street lamps and the Bloom slider open at 54%" loading="lazy"></div>
+            </div>
+            <figcaption>
+              <span class="shot-id">SHOT 08</span>
+              A rainy street at night with halation and bloom turned on: the street lamps glow and
+              bleed into the dark, and the light spills over the wet cobbles. The Bloom slider is
+              open at 54%, with Halation at 100 beside it and the Film Yellow S look under the
+              shutter.
+            </figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- 05 -->
+      <article class="feature" id="colorlab">
+        <div class="wrap feature-grid">
+          <div class="feature-text">
+            <p class="feature-no">05</p>
+            <h3>LUT Colour Lab: read the machine, then tune it</h3>
+            <p class="feature-lede">
+              Before you shoot a look, you can study it the way a technician studies a camera's
+              colour: what it does to tone, hue and saturation, and how close a set of controls
+              comes to rebuilding it. Then you make it yours. Your looks work everywhere a
+              built-in look does: in the camera, on a roll of film, and exported as a
+              <code>.cube</code> file. The lab is where the simulation becomes something you
+              understand.
+            </p>
+            <ul class="spec-list">
+              <li><b>Adjust or Rebuild</b>Adjust keeps the LUT and adds your changes on top. Rebuild throws the LUT away and recreates the look from sliders fitted to it.</li>
+              <li><b>Full colour toolkit</b>Exposure, contrast, tone and RGB curves, saturation, white balance, split toning and 8-band HSL.</li>
+              <li><b>Analysis charts</b>See what a look does to tone, hue and saturation before you change it.</li>
+              <li><b>Import &amp; export</b>Save your look to the library, and export it as a .cube to use in other apps.</li>
+            </ul>
+          </div>
+          <figure class="device-fig">
+            <div class="phone" data-shot="feature-colorlab.jpg">
+              <div class="screen"><img src="screens/feature-colorlab.jpg" alt="LUT Colour Lab page for the Provia look: Best for, Use in Camera and Adjust Colours buttons, a five-point radar chart of saturation, contrast, brightness, warmth and tint, and bars with the measured values" loading="lazy"></div>
+            </div>
+            <figcaption>
+              <span class="shot-id">SHOT 09</span>
+              A look opened in LUT Colour Lab, here Provia. It says what the look is best for,
+              and a radar chart and bars show what it does to saturation, contrast, brightness,
+              warmth and tint, so you can see it before you shoot. Use in Camera puts it in the
+              viewfinder, and Adjust Colours opens it for your own changes.
+            </figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- 06 Analog -->
+      <article class="feature analog" id="analog">
+        <div class="wrap feature-grid">
+          <div class="feature-text">
+            <p class="feature-no">06</p>
+            <h3>Analog: load the film onto the camera</h3>
+            <p class="feature-lede">
+              Film is a simulation of commitment. Analog mode opens a shelf of vintage film
+              cameras, and choosing one is a simulation of that camera: the frame it shoots,
+              the lens it keeps, and the character of the picture. The body has a strength of
+              its own: a vignette that belongs to its lens, a glow around the lights, a focal
+              length it will not leave. You load a stock in the format that
+              body shoots. Full-frame 135 keeps one picture on the frame. Half frame places
+              two in the same frame. A format is a crop, so more film sizes can follow that
+              rule. The length and the stock stay put until the roll is finished. The date
+              stamp, the contact sheet and the frames underneath are the darkroom end of the
+              same game. Close to loading a real canister. Still a simulation.
+            </p>
+            <ul class="spec-list">
+              <li><b>A camera, then a canister</b>Pick an analog body and read what it does, then load the format that body shoots, full-frame 135 or half frame, a 24- or 36-exposure roll, and one film simulation onto it.</li>
+              <li><b>Each body has a strength</b>One camera vignettes hard. Another blooms around lights. Another is simply a fast wide lens for the dark. The profile keeps that character for the whole roll.</li>
+              <li><b>Locked to the roll</b>The stock, its strength and the camera stay put until the roll is finished, the way a cassette does once the back is closed.</li>
+              <li><b>The frame, the stamp, the sheet</b>Full-frame 135 is one 3:2 picture on the frame. Half frame is two pictures in that same frame. Further formats can join by their crop. A date stamp prints in the corner like a data back. A finished roll becomes a contact sheet you can save or share. Export Web Page puts that sheet, the photos and a full HTML page in a zip. Send the zip to a computer, unzip it, and the page opens in a normal browser. The sheet follows the format you loaded.</li>
+              <li><b>Develop later</b>Finished rolls stay in SimCam's private library, marked finished, ready to look through like a set of prints.</li>
+            </ul>
+          </div>
+          <div class="shot-stack">
+          <figure class="device-fig">
+            <div class="phone" data-shot="feature-analog.jpg">
+              <div class="screen"><img src="screens/feature-analog.jpg" alt="A finished roll of Fujifilm Fujicolor 100: a film-strip contact sheet of all 24 frames, the note Full frame · 24 of 24 shots · finished, Save Sheet and Share Sheet buttons, and frames 16 to 24 below" loading="lazy"></div>
+            </div>
+            <figcaption>
+              <span class="shot-id">SHOT 10</span>
+              A finished roll: full frame, all 24 exposures of Fujifilm Fujicolor 100. The
+              film strip across the top is the contact sheet, and the library reads "Full frame
+              · 24 of 24 shots · finished". Save Sheet and Share Sheet export it, and frames
+              16 through 24 sit below.
+            </figcaption>
+          </figure>
+          <figure class="device-fig">
+            <div class="phone" data-shot="feature-analog-cameras.jpg">
+              <div class="screen"><img src="screens/feature-analog-cameras.jpg" alt="Analog Cameras list: Pentax 17 half frame, then Nikon 28Ti, Contax T3, Leica minilux, Minolta TC-1, Konica Tomato and Fujifilm Natura S, each with focal length, ISO and vignetting" loading="lazy"></div>
+            </div>
+            <figcaption>
+              <span class="shot-id">SHOT 11</span>
+              Analog mode, choosing the camera. The list is a shelf of vintage film cameras,
+              and each row is a simulation of that body. Pentax 17 shoots half frame at 35 mm.
+              The rest are full-frame 135: Nikon 28Ti, Contax T3, Leica minilux, Minolta TC-1,
+              Konica Tomato and Fujifilm Natura S, with the focal length, the ISO the profile
+              allows, and, where the lens has it, the vignette it keeps for the roll.
+            </figcaption>
+          </figure>
+          </div>
+        </div>
+      </article>
+
+      <!-- 07 -->
+      <article class="feature" id="drive">
+        <div class="wrap feature-grid">
+          <div class="feature-text">
+            <p class="feature-no">07</p>
+            <h3>The drive dial is a set of jobs</h3>
+            <p class="feature-lede">
+              A camera's drive dial is how you tell it what kind of picture this is. Portrait
+              simulates depth. Night stacks a dark scene, and can keep the moving lights as
+              trails. A slow shutter with the flash waiting at the end is the old slow-sync
+              trick, subject sharp, city still drawing behind it. ND stretches time in daylight.
+              Time-lapse plays the hours back as a clip. Each one is a way of handling the
+              exposure, simulated end to end.
+            </p>
+            <ul class="spec-list">
+              <li><b>Single &amp; Burst</b>One frame, or a rapid run of 12 MP shots. Pick the keepers from a filmstrip and discard the rest.</li>
+              <li><b>Portrait</b>Simulated depth of field on the main lens, with a live blur you set on the aperture dial. See Portrait below.</li>
+              <li><b>Night</b>For low light. Under 1 s it's one photo. From 1 s, frames are stacked: Average for a still picture, Trails when the moving lights should stay. In the hand the shutter runs to 7 s; on a tripod, to 30 s. See Night below.</li>
+              <li><b>Slow-sync flash</b>Set the flash to On in Night and it works like a traditional camera's slow sync: a long exposure for the ambient light, with the flash firing at the end, as rear-curtain sync does. The subject is frozen sharp by the flash, while the lights behind it keep their trails.</li>
+              <li><b>Digital ND</b>Slows the shutter in daylight, from 0.5 to 30 s. Frames are aligned and averaged for silky water and blurred crowds in the middle of the day, without the ghosting from hand shake.</li>
+              <li><b>Handheld or tripod</b>The phone senses whether it's in your hands or resting on a tripod, and you can set it by hand too. With image stabilisation (IBIS) handheld, the time dial stops at a length you can hold steady. On a tripod it extends all the way to 30 s.</li>
+              <li><b>Time-lapse</b>One frame every 1 to 30 s, played back as a 30 fps video with the look applied.</li>
+              <li><b>Video</b>Also on the dial: the same as tapping the video button.</li>
+            </ul>
+          </div>
+          <figure class="device-fig wide">
+            <div class="phone landscape" data-shot="feature-drive.jpg">
+              <div class="screen"><img src="screens/feature-drive.jpg" alt="SimCam in landscape on a tripod at night in Night mode, with the time wheel set to 30 seconds, red light trails on a Tokyo street, and Hold set to Auto with a tripod icon" loading="lazy"></div>
+            </div>
+            <figcaption>
+              <span class="shot-id">SHOT 12</span>
+              Night's Trails style on a tripod: moving lights pile up into streaks while the
+              street stays put. A tripod lets the shutter run to 30 s. In the hand, Night stops
+              at 7 s. The phone has sensed the stand, so the tripod icon shows in Hold.
+            </figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- 08 Night -->
+      <article class="feature alt" id="night">
+        <div class="wrap feature-grid">
+          <div class="feature-text">
+            <p class="feature-no">08</p>
+            <h3>Night: stack it, trail it, or sync the flash</h3>
+            <p class="feature-lede">
+              A great night picture is a handling, and this is a simulation of that handling.
+              When the meter wants a second or longer, frames are aligned and blended in the
+              look you chose: Average when you want the noise to fall away and the scene to sit
+              still, Trails when a landscape or a city should draw with light. Flash set to On
+              waits for the end of that long shutter, the way slow sync does, so the subject
+              is caught sharp and the lights behind it keep moving. Brighter than a second, the
+              badge reads OFF and you simply take the photo.
+            </p>
+            <ul class="spec-list">
+              <li><b>It only steps in when needed</b>The badge above the picture reads the live meter: the total time, the shutter and ISO of each frame, and a hand or a tripod. Under 1 s it shows OFF and the shutter takes a single photo.</li>
+              <li><b>Two stops up, then a longer shutter</b>A dark scene is lifted two stops over normal metering. Auto holds ISO at 1,000 and lengthens the shutter instead, up to 7 s in the hand or 30 s on a tripod, and only then raises the ISO, up to 25,600. The finished photo is as bright as one shot at that shutter and ISO.</li>
+              <li><b>The dials still work</b>Pin an ISO and the shutter is metered for it. Pin a shutter and Night builds that time, held to 7 s while you hold the phone and 30 s once it's steady.</li>
+              <li><b>Average</b>Frames are aligned and averaged into one still moment. The noise falls and anything that moves is smoothed away.</li>
+              <li><b>Trails</b>The same stack, with the brightest moving lights laid back on top, so headlights, stars and fireworks draw streaks.</li>
+              <li><b>STD · 12 MP</b>The usual quality. Each frame is a 12 MP HEIF Apple has already processed, with its HDR gain map. SimCam aligns and averages them, runs your LUT, and saves an HDR HEIF, so highlights brighter than SDR white come back on an HDR screen.</li>
+              <li><b>Hi Res</b>The same stack at the lens's full photo size, 48 MP where the lens has it. Fewer frames fit in the same time, so there is more detail and a little more noise. Night uses the real lenses only: the 28, 35, 45 and 85 mm crops are set aside, and Hi Res is offered only on a lens with a photo above 12 MP.</li>
+              <li><b>HEIF, sized by Night</b>Resolution and file format are set aside. STD saves 12 MP. Hi Res saves the lens's own large photo.</li>
+              <li><b>Slow-sync flash</b>Flash On keeps the long exposure and fires at the end, like rear-curtain sync. That shot is built from a continuous run of frames, so the light can land on time.</li>
+            </ul>
+          </div>
+          <figure class="device-fig">
+            <div class="phone" data-shot="feature-night.jpg">
+              <div class="screen"><img src="screens/feature-night.jpg" alt="SimCam in Night mode on a driveway under tall evergreens: the badge reads 5S, 1/3, ISO 1000, held in the hand, with HEIF 12MP, the 24 mm lens, and Velvia under the shutter" loading="lazy"></div>
+            </div>
+            <figcaption>
+              <span class="shot-id">SHOT 13</span>
+              A driveway at night under tall evergreens, on the 24 mm lens. The badge reads
+              5S, 1/3, ISO 1000, and a hand: Night will build that exposure. The file is
+              HEIF 12MP, Night is the drive mode, and Velvia sits under the shutter.
+            </figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- 09 Portrait -->
+      <article class="feature" id="portrait">
+        <div class="wrap feature-grid">
+          <div class="feature-text">
+            <p class="feature-no">09</p>
+            <h3>Portrait: depth as a dial you can turn</h3>
+            <p class="feature-lede">
+              Depth of field is one of the feelings of a lens, and here it is simulated. Portrait
+              reads how far everything is, then blurs the background as you turn the aperture
+              dial, the way choosing a wider stop on a short telephoto would. The depth stays in
+              the photo, so you can refocus and change the blur afterwards in Apple's Photos app.
+              A simulation of the choice, kept close enough that the dial still means something.
+            </p>
+            <ul class="spec-list">
+              <li><b>A live blur on the aperture dial</b>Turn the dial from ƒ1.4 to ƒ16 and watch the background soften or sharpen in the viewfinder. It applies in Portrait only. Every other mode is untouched.</li>
+              <li><b>Tap to focus</b>Tap the subject and the blur is measured from there, so what's at that distance stays sharp.</li>
+              <li><b>Edit it in Photos</b>The photo saves its depth map and mattes. Open it in Apple Photos and Edit offers the aperture slider, refocus and Portrait lighting.</li>
+              <li><b>Like a 35 mm lens</b>The simulated blur follows a 35 mm lens: a wider aperture, a longer focal length or a closer subject all blur more. Very close up, the effect fades out, as it does on Apple's own camera.</li>
+              <li><b>HEIF only</b>Depth lives in the HEIF file, so Portrait saves HEIF at 12 MP and the format choice is set aside.</li>
+              <li><b>Your look still applies</b>The film simulation, grain and halation are developed into the portrait like any other shot.</li>
+            </ul>
+          </div>
+          <div class="duo">
+            <figure class="device-fig">
+              <div class="phone" data-shot="feature-portrait.jpg">
+                <div class="screen"><img src="screens/feature-portrait.jpg" alt="SimCam in Portrait: a sharp golden retriever against a blurred street, HEIF 48MP on Auto, 24 mm lens and frame, native aspect, and the HNCS Hi-Contrast look under the shutter" loading="lazy"></div>
+              </div>
+              <figcaption>
+                <span class="shot-id">SHOT 14</span>
+                Portrait in the viewfinder. The dog is sharp and the street behind falls soft.
+                The drive dial is on Portrait, the file reads HEIF 48MP, and the lens and frame
+                are both 24 mm. HNCS Hi-Contrast sits under the shutter.
+              </figcaption>
+            </figure>
+            <figure class="device-fig">
+              <div class="phone" data-shot="feature-portrait-photos.jpg">
+                <div class="screen"><img src="screens/feature-portrait-photos.jpg" alt="Apple Photos editing a portrait of a cat: a focus box on the nose, the depth slider at f/2.8, and Portrait, Adjust, Filters, Crop and Clean Up below" loading="lazy"></div>
+              </div>
+              <figcaption>
+                <span class="shot-id">SHOT 15</span>
+                Opened in Apple Photos. The focus box is on the nose, and the depth slider
+                reads ƒ2.8, so the blur and the point of focus are still yours to change.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </article>
+
+      <!-- 10 -->
+      <article class="feature alt" id="focus">
+        <div class="wrap feature-grid">
+          <div class="feature-text">
+            <p class="feature-no">10</p>
+            <h3>Focus, with the assistants a serious body gives you</h3>
+            <p class="feature-lede">
+              Fine focus is a skill, and premium cameras teach it with tools. SimCam simulates
+              that help. You turn focus by distance, the way a lens barrel is marked, then check
+              the point the way a digital camera does: edges that peak in colour, and a zoom into
+              the place you are trying to sharpen. The assistance is the simulation. The decision
+              is still yours.
+            </p>
+            <ul class="spec-list">
+              <li><b>Distance scale</b>A focus slider marked in metres, from close focus to infinity.</li>
+              <li><b>Zoom focusing</b>Punch in on the focus point, as on a real digital camera, and see whether it's sharp.</li>
+              <li><b>Focus peaking</b>Sharp edges light up in the colour you choose.</li>
+              <li><b>Clipping warnings</b>Blown highlights and crushed shadows are flagged on the live view.</li>
+            </ul>
+          </div>
+          <figure class="device-fig">
+            <div class="phone" data-shot="feature-focus.jpg">
+              <div class="screen"><img src="screens/feature-focus.jpg" alt="SimCam in manual focus on a maple leaf: the distance slider at 0.3 m with red focus peaking tracing the sharp edges of the leaf" loading="lazy"></div>
+            </div>
+            <figcaption>
+              <span class="shot-id">SHOT 16</span>
+              Manual focus on a maple leaf. The distance slider is set to 0.3 m, and red peaking
+              traces the edges of the leaf that are in sharp focus while the background melts
+              into soft bokeh.
+            </figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- 11 -->
+      <article class="feature" id="composition">
+        <div class="wrap feature-grid">
+          <div class="feature-text">
+            <p class="feature-no">11</p>
+            <h3>Framing, the way a body helps you see</h3>
+            <p class="feature-lede">
+              Levels and grids are the small instruments a camera puts in the finder so you can
+              hold a horizon and a proportion. SimCam simulates those, then adds a guide that
+              reads the scene and suggests a stronger frame. It runs on the phone. The picture
+              is still the one you decide to take.
+            </p>
+            <ul class="spec-list">
+              <li><b>Three levels</b><span>Choose the leveler your camera had: a horizon <em>line</em>, a floating <em>ball</em>, or two spirit-level <em>tubes</em> for roll and tilt.</span></li>
+              <li><b>Grid lines</b>Composition grids drawn on the picture, just like many digital cameras.</li>
+              <li><b>AI artist guide</b>Finds leading lines and where they meet, the horizon and the third it belongs on, your subject and where it should go, frames within the frame, symmetry and open space, and draws the tip over the live view.</li>
+              <li><b>On-device</b>Runs on Apple's Vision framework. No frame ever leaves the phone.</li>
+            </ul>
+          </div>
+          <figure class="device-fig">
+            <div class="phone" data-shot="feature-composition.jpg">
+              <div class="screen"><img src="screens/feature-composition.jpg" alt="SimCam's AI artist guide on a vintage medium-format camera: a guidance card says the horizon cuts the picture in half, with a yellow line where the horizon is and a dashed line with an arrow where it should go" loading="lazy"></div>
+            </div>
+            <figcaption>
+              <span class="shot-id">SHOT 17</span>
+              The AI artist guide at work. A card at the top says what it sees: here, that the
+              horizon cuts the picture in half, and how to fix it. The viewfinder draws the tip
+              too: a yellow line where the horizon is now, and a dashed line with an arrow where
+              it should go.
+            </figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- 12 -->
+      <article class="feature alt" id="creative">
+        <div class="wrap feature-grid">
+          <div class="feature-text">
+            <p class="feature-no">12</p>
+            <h3>Craft that used to live in the camera</h3>
+            <p class="feature-lede">
+              Some of the pleasure of a film camera was what it could do before you ever reached
+              a darkroom. A second exposure laid over the first. A date burned into the corner.
+              A contact sheet of the whole roll. SimCam simulates those gestures in the camera,
+              so the handling includes the finish.
+            </p>
+            <ul class="spec-list">
+              <li><b>Double exposure</b>Lay a chosen picture over your next shot, previewed live. Blend with Screen (as on film), Lighten, Average or Multiply.</li>
+              <li><b>Date &amp; time stamp</b>The orange data-back stamp, in Y M D, D M Y or M D Y order, with or without the time, in the left or right corner.</li>
+              <li><b>Frame studio</b>Turn library shots into prints: side-by-side half-frame pairs, framed prints and film-strip contact sheets.</li>
+              <li><b>Print styles</b>Thin, matte, instant film, rounded, film rebate and postcard borders.</li>
+            </ul>
+          </div>
+          <div class="duo">
+            <figure class="device-fig">
+            <div class="phone" data-shot="feature-creative.jpg">
+              <div class="screen"><img src="screens/feature-creative.jpg" alt="SimCam's frame studio in Pair mode: two photos side by side in a white instant-film border with the handwritten caption Summer, and settings for frame, background, caption, lettering and divider" loading="lazy"></div>
+            </div>
+            <figcaption>
+              <span class="shot-id">SHOT 18</span>
+              The frame studio in Pair mode: two photos side by side in a white instant-film
+              border, with the caption "Summer" handwritten underneath. Frame, background,
+              caption, lettering and divider are all adjustable below, and Select, Swap, Save and
+              Share are along the bottom.
+            </figcaption>
+          </figure>
+            <figure class="device-fig">
+              <div class="phone" data-shot="feature-double.jpg">
+                <div class="screen"><img src="screens/feature-double.jpg" alt="SimCam with a double exposure armed: a woman's silhouette against a golden sunset filled with pink cosmos flowers, and the blend choices Screen, Lighten, Average and Multiply open, with Multiply selected" loading="lazy"></div>
+              </div>
+              <figcaption>
+                <span class="shot-id">SHOT 19</span>
+                Double exposure armed: a second picture of flowers laid over the silhouette
+                against the sunset, so the flowers grow inside her outline. The blend choices
+                are open (Screen, Lighten, Average, Multiply), with Multiply selected, and the
+                result is previewed live in the viewfinder before you press the shutter.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </article>
+
+      <!-- 13 -->
+      <article class="feature" id="video">
+        <div class="wrap feature-grid stack">
+          <div class="feature-text">
+            <p class="feature-no">13</p>
+            <h3>Video, graded as you roll</h3>
+            <p class="feature-lede">
+              Switching to video is another machine: the full 16:9 frame, the look graded into
+              the clip as it records, sound running with it. The simulation is the same idea as
+              a still. The colour belongs to the camera you are handling, at the moment you
+              press record.
+            </p>
+            <ul class="spec-list two-col even">
+              <li><b>Full-frame 16:9</b>1080p at a steady 30 fps, even in low light. HEVC with sound.</li>
+              <li><b>Graded live</b>Your film look and curve are recorded straight into the file, with no grading to do afterwards.</li>
+              <li><b>Frame lines crop</b>Record exactly what the frame lines show.</li>
+              <li><b>Portrait or landscape</b>Recorded upright the way you held the phone.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- 14 -->
+      <article class="feature alt" id="yours">
+        <div class="wrap feature-grid stack">
+          <div class="feature-text">
+            <p class="feature-no">14</p>
+            <h3>The body you hold</h3>
+            <p class="feature-lede">
+              A camera is a thing in the hand. Dress the body, set the meter to appear when you
+              want it, give the shutter a sound, and put SimCam on the Lock Screen so the next
+              picture starts with a press. The skin is a simulation of a body. The controls
+              underneath are the simulation of using it.
+            </p>
+            <ul class="spec-list two-col">
+              <li><b>Every control, one grid</b>The main menu opens into a grid of every setting: drive, film strength, tone curve, flash, exposure compensation, white balance, focus, aperture, shutter, ISO, histogram, output, level, timer, sound, grid, artist guide, bloom, halation, diffusion, vignetting, grain, special effects, date stamp, double exposure, location, save destination, frame studio, theme, and About.</li>
+              <li><b>Body skins</b>Classic, Modern, Retro, Disposable, Toy, Story or plain Black. The same skin in portrait and landscape, sized for the phone in your hand.</li>
+              <li><b>Meter behaviour</b>Keep the metering bar always on, or have it appear only while you change exposure.</li>
+              <li><b>Shutter sounds</b>A mechanical click, the iPhone's own shutter, or something sillier.</li>
+              <li><b>Lock-screen camera</b>Make SimCam the camera button at the lower right of your Lock Screen, ready to shoot with one press.</li>
+            </ul>
+          </div>
+          <div class="skins">
+            <figure class="device-fig">
+              <div class="phone" data-shot="feature-menu.jpg">
+                <div class="screen"><img src="screens/feature-menu.jpg" alt="SimCam with the main menu open: a grid of every control, from drive, tone curve and flash to aperture, shutter, ISO, grain, date stamp and theme, over a sunset river" loading="lazy"></div>
+              </div>
+              <figcaption>
+                <span class="shot-id">SHOT 20</span>
+                The main menu opened up: every control the camera has, in one grid. Tap any cell
+                to change it, and cells that differ from the default light up in gold.
+              </figcaption>
+            </figure>
+            <figure class="device-fig">
+              <div class="corner" role="img" aria-label="The lower right corner of an iPhone Lock Screen, showing SimCam as the camera button">
+                <div class="phone" data-shot="feature-lockscreen.jpg">
+                  <div class="screen"><img src="screens/feature-lockscreen.jpg" alt="" loading="lazy"></div>
+                </div>
+              </div>
+              <figcaption>
+                <span class="shot-id">SHOT 21</span>
+                A close-up of the Lock Screen's lower right corner. The camera button there opens
+                SimCam, shown here with its aperture icon, instead of Apple's camera.
+              </figcaption>
+            </figure>
+            <figure class="device-fig">
+              <div class="phone" data-shot="feature-skins.jpg">
+                <div class="screen"><img src="screens/feature-skins.jpg" alt="Five camera body skins stacked: black leather with steel, plain black, steel and black leather, yellow and red wave, and cream and teal with a rainbow stripe" loading="lazy"></div>
+              </div>
+              <figcaption>
+                <span class="shot-id">SHOT 22</span>
+                The camera's body skins: Classic, Black, Modern, Disposable and Toy. The same
+                skin follows you from portrait to landscape.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ───────────── Specs ───────────── -->
+    <section class="specs" id="specs">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="kicker">Specifications</p>
+          <h2>The spec sheet.</h2>
+        </header>
+        <dl class="spec-table">
+          <div><dt>Capture</dt><dd>Bayer RAW (12 MP) or Apple ProRAW (Pro models), developed in-app</dd></div>
+          <div><dt>Output</dt><dd>HEIF · JPEG · PNG, optionally + RAW DNG or + ProRAW DNG</dd></div>
+          <div><dt>Focal lengths</dt><dd>13 · 24 · 28 · 35 · 45 · 85 · 120 mm</dd></div>
+          <div><dt>Frame lines</dt><dd>Current lens + next three</dd></div>
+          <div><dt>Aspect ratios</dt><dd>Native · 1:1 · 4:3 · 3:2 · 16:9</dd></div>
+          <div><dt>Exposure</dt><dd>P · A · S · M by pinning dials, ⅓-stop steps</dd></div>
+          <div><dt>ISO</dt><dd>25 – 25,600 (extended range pushed in RAW)</dd></div>
+          <div><dt>Metering</dt><dd>LED bar −2 … +2 EV, live histogram</dd></div>
+          <div><dt>Drive</dt><dd>Single · Burst · Portrait · Night · ND · Time-lapse · Video</dd></div>
+          <div><dt>Night</dt><dd>Metered: single shot under 1 s, stacked from 1 s (7 s handheld, 30 s tripod) · Average or Trails · STD 12 MP or Hi Res · HDR HEIF</dd></div>
+          <div><dt>Portrait</dt><dd>A simulated aperture-driven blur · depth and mattes saved in HEIF for refocus in Photos · 12 MP</dd></div>
+          <div><dt>Metadata</dt><dd>Aperture · shutter · ISO · focal length · distance · look values · GPS · drive mode</dd></div>
+          <div><dt>Film looks</dt><dd>140+ LUTs, custom looks, .cube export</dd></div>
+          <div><dt>Film effects</dt><dd>Halation · Bloom · Diffusion · Vignetting · Grain · Color Chrome · FX Blue · Highlight roll-off · Film curves</dd></div>
+          <div><dt>Focus</dt><dd>Distance scale · Zoom focusing · Peaking · Clipping</dd></div>
+          <div><dt>Levels</dt><dd>Line · Ball · Tubes</dd></div>
+          <div><dt>Video</dt><dd>1080p · 30 fps · HEVC · 16:9 · live grade</dd></div>
+          <div><dt>Body skins</dt><dd>Classic · Modern · Retro · Disposable · Toy · Story · Black</dd></div>
+          <div><dt>Privacy</dt><dd>On-device only, encrypted private library</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="film-strip" aria-hidden="true"></div>
+
+    <!-- ───────────── Final CTA ───────────── -->
+    <section class="closing">
+      <div class="wrap closing-inner">
+        <h2>Handle the camera.<br><em>Earn the picture.</em></h2>
+        <a class="btn btn-light" href="" data-app-store>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8 1.5 0 1.9.8 3.2.8 1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.6-1-2.6-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4z"/></svg>
+          <span><small>Download on the</small>App Store</span>
+        </a>
+        <p class="note">Coming soon for iPhone</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-row">
+      <span class="wordmark small">SIM<span class="dash"></span>CAM</span>
+      <span>A simulation of how a camera is handled.</span>
+      <nav class="footer-links" aria-label="Legal">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="support.html">Support</a>
+      </nav>
+      <span>© 2026 Chris Huang</span>
+    </div>
+  </footer>
+
+</body>
+</html>
