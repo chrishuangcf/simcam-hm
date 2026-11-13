@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SimCam — Handle the camera</title>
-  <meta name="description" content="SimCam simulates the experience of handling a camera: night stacking and light trails, focus assistants, the exposure triangle, slow-sync flash, film rolls and contact sheets, and a colour pipeline close to a digital camera's own firmware. A simulation, kept close to the real thing.">
+  <meta name="description" content="SimCam simulates the experience of handling a camera: night stacking and light trails, focus assistants, the exposure triangle, slow-sync flash, film rolls and contact sheets, a RAW studio for files from other cameras, and a colour pipeline close to a digital camera's own firmware. A simulation, kept close to the real thing.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -20,6 +20,7 @@
         <a href="#screens">In use</a>
         <a href="#features">Features</a>
         <a href="#analog">Analog</a>
+        <a href="#studio">Studio</a>
         <a href="#specs">Specs</a>
       </nav>
       <a class="btn btn-outline" href="https://apps.apple.com/us/app/sim-cam/id6829982603" data-app-store>
@@ -235,6 +236,7 @@
             <ul class="spec-list">
               <li><b>RAW to finished photo</b>Saves HEIF, JPEG or PNG with the look baked in, developed from the raw capture the way a camera finishes its own file.</li>
               <li><b>The pipeline is the simulation</b>On a normal shot the grain and the highlight roll-off are the ones you set, a stand-in for the processing a body does before you ever see the picture. Night starts from computational HDR frames, then stacks and grades them here.</li>
+              <li><b>Three sizes</b>Save at 12, 24 or 48 MP. 24 MP is the 48 MP capture binned down, so it keeps the detail with less noise and a smaller file.</li>
               <li><b>You choose the machine</b>Stacking runs when you pick Night or ND on the drive dial. Depth is captured when you pick Portrait. Each one is a mode you commit to, the way you would pick a long exposure or a portrait lens.</li>
               <li><b>HEIF, computational</b>Night finishes a ready-to-share HDR HEIF. Computational HDR frames are stacked and graded with your look, and highlights brighter than a normal print come back on an HDR screen.</li>
               <li><b>Portrait</b>A simulated aperture, from ƒ1.4 to ƒ16, with the depth saved in the HEIF. Focus, subject separation and Portrait lighting can still be changed after the shot.</li>
@@ -368,6 +370,10 @@
               <li><b>Lens vignetting</b>Corners darken the way a wide-open lens falls off, round about the centre. All the way up is about two stops at the corners, and the middle stays as it is. A camera profile can lock its own vignette for the whole roll.</li>
               <li><b>Color Chrome</b>On the Special effects control, at Off, Weak or Strong. Saturated reds, yellows and greens go deeper, so a bright colour keeps its steps of tone. Pale and dark colours stay as they are.</li>
               <li><b>FX Blue</b>The same deepening for blues, skies and water. Off, Weak or Strong, and it can be on together with Color Chrome.</li>
+              <li><b>Light Trail</b>Smears the lights the halation finds, along any angle: centred on each light, or one way and fading off. The strength you see in the live view is the strength that is saved, on any look.</li>
+              <li><b>Tilt-Shift</b>Miniature focus on any photo: a sharp horizontal or vertical strip, or a circle, with the rest blurred more the farther it is from the sharp zone.</li>
+              <li><b>Halftone</b>Newspaper-print dots in mono, CMYK or RGB, with the dot size, rotation and randomness your own.</li>
+              <li><b>Bitmap</b>Retro 8-bit pixels: a mosaic you size yourself, in 256, 16, 7, 4 or 2 colours taken from the photo, a classic palette, or your own.</li>
               <li><b>Highlight roll-off</b>Bright tones ease into white. On a RAW photo the roll-off uses the file's headroom. In the live view, and when there is no RAW, a gentle shoulder keeps the near-white detail apart.</li>
             </ul>
           </div>
@@ -576,7 +582,9 @@
               <li><b>Tap to focus</b>Tap the subject and the blur is measured from there, so what's at that distance stays sharp.</li>
               <li><b>Edit it in Photos</b>The photo saves its depth map and mattes. Open it in Apple Photos and Edit offers the aperture slider, refocus and Portrait lighting.</li>
               <li><b>Like a 35 mm lens</b>The simulated blur follows a 35 mm lens: a wider aperture, a longer focal length or a closer subject all blur more. Very close up, the effect fades out, as it does on Apple's own camera.</li>
-              <li><b>HEIF only</b>Depth lives in the HEIF file, so Portrait saves HEIF at 12 MP and the format choice is set aside.</li>
+              <li><b>Every lens that has depth</b>Shoot Portrait on the 24 mm wide lens or step to the telephoto, the way Apple's camera offers 1×, 2× and 5×. Each keeps its own depth, so Photos can still edit it.</li>
+              <li><b>Night mode in Portrait</b>Leave the shutter and ISO on automatic and iOS applies its low-light processing to the portrait. Turning the aperture dial only sets the blur, so it never gets in the way.</li>
+              <li><b>HEIF only</b>Depth lives in the HEIF file, so Portrait saves HEIF at 12 MP, as Apple's camera does, and the format choice is set aside.</li>
               <li><b>Your look still applies</b>The film simulation, grain and halation are developed into the portrait like any other shot.</li>
             </ul>
           </div>
@@ -800,6 +808,52 @@
           </div>
         </div>
       </article>
+
+      <!-- 15 -->
+      <article class="feature" id="studio">
+        <div class="wrap feature-grid">
+          <div class="feature-text">
+            <p class="feature-no">15</p>
+            <h3>Camera RAW Studio: bring other cameras in</h3>
+            <p class="feature-lede">
+              SimCam's pipeline is not only for the phone. Camera RAW Studio, part of SimCam
+              Pro, takes RAW files from the camera you already own and develops them the same
+              way: the look, the film effects and the finish you chose, on a file that never
+              passed through a phone's processing. One frame opens as a photo editor. Several
+              frames from one camera stack, as Night does, into a cleaner picture or a trail of
+              light. The originals are never touched.
+            </p>
+            <ul class="spec-list">
+              <li><b>Import from anywhere</b>A USB drive, an SD card in a reader, another camera over USB-C, or any folder in Files, and RAW from Apple Photos too.</li>
+              <li><b>Straight from the camera</b>Plug in a body such as a Fujifilm X-E5 set to USB storage mode and SimCam reads its RAW files directly, newest first, with no card reader.</li>
+              <li><b>One frame or a stack</b>A single RAW opens in the editor. Several are aligned on their contours, shaken frames left out, and averaged, or laid with the brightest lights for light and star trails.</li>
+              <li><b>The camera's own controls</b>The same menu as the viewfinder: LUT and its strength, film curve, white balance, exposure, bloom, halation, light trail, diffusion, vignette, grain, Color Chrome, Tilt-Shift, halftone, bitmap, date stamp and double exposure.</li>
+              <li><b>Saved like a camera file</b>An HDR HEIF with a gain map on iOS 18 and later, or SDR, kept in your private library or Apple Photos. The RAW originals stay as they are.</li>
+            </ul>
+          </div>
+          <div class="duo">
+            <figure class="device-fig">
+              <div class="phone" data-shot="feature-studio-import.jpg">
+                <div class="screen"></div>
+              </div>
+              <figcaption>
+                <span class="shot-id">SHOT 23</span>
+                The Import RAW from sheet: USB drive, SD card or camera, and Apple Files or
+                Photos below.
+              </figcaption>
+            </figure>
+            <figure class="device-fig">
+              <div class="phone" data-shot="feature-studio-editor.jpg">
+                <div class="screen"></div>
+              </div>
+              <figcaption>
+                <span class="shot-id">SHOT 24</span>
+                The studio editor, with the camera's own menu under the picture.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </article>
     </section>
 
     <!-- ───────────── Specs ───────────── -->
@@ -810,8 +864,8 @@
           <h2>The spec sheet.</h2>
         </header>
         <dl class="spec-table">
-          <div><dt>Capture</dt><dd>Bayer RAW (12 MP) or Apple ProRAW (Pro models), developed in-app</dd></div>
-          <div><dt>Output</dt><dd>HEIF · JPEG · PNG, optionally + RAW DNG or + ProRAW DNG</dd></div>
+          <div><dt>Capture</dt><dd>Bayer RAW (12 MP) or Apple ProRAW (Pro models, 12 or 48 MP), developed in-app</dd></div>
+          <div><dt>Output</dt><dd>HEIF · JPEG · PNG at 12, 24 or 48 MP, optionally + RAW DNG or + ProRAW DNG</dd></div>
           <div><dt>Focal lengths</dt><dd>13 · 24 · 28 · 35 · 45 · 85 · 120 mm</dd></div>
           <div><dt>Frame lines</dt><dd>Current lens + next three</dd></div>
           <div><dt>Aspect ratios</dt><dd>Native · 1:1 · 4:3 · 3:2 · 16:9</dd></div>
@@ -820,10 +874,11 @@
           <div><dt>Metering</dt><dd>LED bar −2 … +2 EV, live histogram</dd></div>
           <div><dt>Drive</dt><dd>Single · Burst · Portrait · Night · ND · Time-lapse · Video</dd></div>
           <div><dt>Night</dt><dd>Metered: single shot under 1 s, stacked from 1 s (7 s handheld, 30 s tripod) · Average or Trails · STD 12 MP or Hi Res · HDR HEIF</dd></div>
-          <div><dt>Portrait</dt><dd>A simulated aperture-driven blur · depth and mattes saved in HEIF for refocus in Photos · 12 MP</dd></div>
+          <div><dt>Portrait</dt><dd>A simulated aperture-driven blur · wide and telephoto lenses · depth and mattes saved in HEIF for refocus in Photos · iOS low-light processing · 12 MP</dd></div>
           <div><dt>Metadata</dt><dd>Aperture · shutter · ISO · focal length · distance · look values · GPS · drive mode</dd></div>
           <div><dt>Film looks</dt><dd>140+ LUTs, custom looks, .cube export</dd></div>
-          <div><dt>Film effects</dt><dd>Halation · Bloom · Diffusion · Vignetting · Grain · Color Chrome · FX Blue · Highlight roll-off · Film curves</dd></div>
+          <div><dt>Film effects</dt><dd>Halation · Bloom · Diffusion · Vignetting · Grain · Color Chrome · FX Blue · Highlight roll-off · Film curves · Light Trail · Tilt-Shift · Halftone · Bitmap</dd></div>
+          <div><dt>Camera RAW Studio</dt><dd>SimCam Pro · RAW from USB drive, SD card, camera over USB-C, Files or Photos · single-frame editor or aligned stack (Average or Trails) · HDR HEIF out</dd></div>
           <div><dt>Focus</dt><dd>Distance scale · Zoom focusing · Peaking · Clipping</dd></div>
           <div><dt>Levels</dt><dd>Line · Ball · Tubes</dd></div>
           <div><dt>Video</dt><dd>1080p · 30 fps · HEVC · 16:9 · live grade</dd></div>
